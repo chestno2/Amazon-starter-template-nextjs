@@ -2,7 +2,7 @@ import Currency from "react-currency-formatter"
 import { StarIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { addToBasket } from "../slices/basketSlice"
+import { addToBasket,removeFromBasket } from "../slices/basketSlice"
 import { useDispatch } from "react-redux"
 function Product({ title, id, category, image, price, description }) {
     const dispatch = useDispatch()
@@ -41,7 +41,9 @@ function Product({ title, id, category, image, price, description }) {
                     <p className=" text-xs text-gray-500 " >Free Next-day Delivery</p>
                 </div>
             )}
-            <button onClick={addItemsToBasket} className=" mt-auto button " > Add to Basket </button>
+            
+            <button onClick={addItemsToBasket} className=" mt-auto  button " > Add to Basket </button>
+
         </div>
 
     )

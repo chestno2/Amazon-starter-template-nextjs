@@ -3,14 +3,16 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import CheckoutProduct from '../Components/CheckoutProduct'
 import Header from "../Components/Header"
-import { selectItems } from '../slices/basketSlice'
+import { selectItems, selectTotal } from '../slices/basketSlice'
+import Currency from "react-currency-formatter"
 function Checkout() {
+    const total = useSelector(selectTotal)
     const items = useSelector(selectItems)
     return (
-        <div className=" bg-gray-400 ">
+        <div className=" bg-gray-100 " >
             <Header />
-            <main className=" lg:flex max-w-screen-2xl mx-auto " >
-                <div className=" flex-grow m-5 shadow-md " >
+            <main className="bg-gray-100 lg:flex max-w-screen-2xl mx-auto " >
+                <div className="  flex-grow m-5 shadow-md " >
                     <Image src="https://links.papareact.com/ikj"
                         width={1020}
                         height={250}
@@ -21,8 +23,9 @@ function Checkout() {
 
                     </div>
                     {items.map((item,i)=>(
+                        <div className=""  >
                         <CheckoutProduct 
-                        key={i}
+                         key={i}
                         title={item.title}
                         rating={item.rating}
                         price={item.price}
@@ -32,9 +35,22 @@ function Checkout() {
                         image={item.image}
 
                         />
+                        </div>
                     ))}
                 </div>
-
+                  {/* Right  */}
+                  <div className=" flex flrx-col bg-white p-10 shadow-md  " >
+                      {items.length>0 &&(
+                          <>
+                          <h2>SubTotal ({items.length} items):{" "}
+                          <span className=" font-bold " >
+                              <Currency  quantity={total} />
+                          </span>
+                          </h2>
+                  
+                          </>
+                      )}
+                  </div>
             </main>
         </div>
     )
