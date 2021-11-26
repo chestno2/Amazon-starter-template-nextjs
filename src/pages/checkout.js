@@ -5,9 +5,11 @@ import CheckoutProduct from '../Components/CheckoutProduct'
 import Header from "../Components/Header"
 import { selectItems, selectTotal } from '../slices/basketSlice'
 import Currency from "react-currency-formatter"
+import { useSession } from "next-auth/client"
 function Checkout() {
     const total = useSelector(selectTotal)
     const items = useSelector(selectItems)
+    const [session] = useSession()
     return (
         <div className=" bg-gray-100 " >
             <Header />
@@ -18,39 +20,43 @@ function Checkout() {
                         height={250}
                         objectFit="contain" />
                     <div className="  flex flex-col  p-5 space-y-10 bg-white">
-                        
-                        <h1 className=" text-3xl  border-b pb-4 " >{items.length===0?"Your Amazon Basket Is empty":"Shopping Basket"}</h1>
+
+                        <h1 className=" text-3xl  border-b pb-4 " >{items.length === 0 ? "Your Amazon Basket Is empty" : "Shopping Basket"}</h1>
 
                     </div>
-                    {items.map((item,i)=>(
+                    {items.map((item, i) => (
                         <div className=""  >
-                        <CheckoutProduct 
-                         key={i}
-                        title={item.title}
-                        rating={item.rating}
-                        price={item.price}
-                        description={item.description}
-                        category={item.image}
-                        hasPrime={item.hasPrime}
-                        image={item.image}
+                            <CheckoutProduct
+                                key={i}
+                                title={item.title}
+                                rating={item.rating}
+                                price={item.price}
+                                description={item.description}
+                                category={item.image}
+                                hasPrime={item.hasPrime}
+                                image={item.image}
 
-                        />
+                            />
                         </div>
                     ))}
                 </div>
-                  {/* Right  */}
-                  <div className=" flex flrx-col bg-white p-10 shadow-md  " >
-                      {items.length>0 &&(
-                          <>
-                          <h2>SubTotal ({items.length} items):{" "}
-                          <span className=" font-bold " >
-                              <Currency  quantity={total} />
-                          </span>
-                          </h2>
-                  
-                          </>
-                      )}
-                  </div>
+                {/* Right  */}
+                <div className=" flex flrx-col bg-white p-10 shadow-md  " >
+                    {items.length > 0 && (
+                        //cart items
+                        <>
+                            <h2>SubTotal ({items.length} items):{" "}
+                                <button className={`button mt-2 ${!session && "from-gray-300 to-gray-500 border-gray-200 cursor-not-allowed"}`} >
+                                    {!session ? "Sign in to checkout" : "Proceed To Checkout"}
+                                </button>
+                                <span className=" font-bold " >
+                                    <Currency quantity={total} />
+                                </span>
+                            </h2>
+
+                        </>
+                    )}
+                </div>
             </main>
         </div>
     )

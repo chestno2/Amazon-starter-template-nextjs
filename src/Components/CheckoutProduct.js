@@ -5,19 +5,18 @@ import Currency from "react-currency-formatter"
 import { useDispatch } from 'react-redux'
 import { addToBasket, removeFromBasket } from '../slices/basketSlice'
 function CheckoutProduct({ title, id, category, image, rating, price, description, hasPrime }) {
-  
+
     const dispatch = useDispatch()
-    const addItemsToBasket =()=>
-   {
-    const product = {
-        title, id, category, image, price, description,rating,hasPrime
+    const addItemsToBasket = () => {
+        const product = {
+            title, id, category, image, price, description, rating, hasPrime
+        }
+        dispatch(addToBasket(product))
     }
-            dispatch(addToBasket(product))
-   }
-   const removeItemsfromBasket = () =>{
-    //    Remove items from redux
-    dispatch(removeFromBasket({id}))
-   }
+    const removeItemsfromBasket = () => {
+        //    Remove items from redux
+        dispatch(removeFromBasket({ id }))
+    }
     return (
         <div className="grid grid-cols-5 " >
             <Image src={image} height={200} width={200} objectFit="contain" />
@@ -36,19 +35,20 @@ function CheckoutProduct({ title, id, category, image, rating, price, descriptio
                     <div className=" flex items-center space-x-2" >
                         <img
                             loading="lazy"
-                         className="w-12"
-                         src="https://links.papareact.com/fdw" alt="" />
-                   <p className=" text-xs text-gray-500 " >Free Next day Delivery</p>
-                   
+                            className="w-12"
+                            src="https://links.papareact.com/fdw" alt="" />
+                        <p className=" text-xs text-gray-500 " >Free Next day Delivery</p>
+
                     </div>
-                   
+
                 )}
-              
+
             </div>
             <div className=" flex flex-col space-y-2 justify-end my-auto " >
-                    <button onClick={addItemsToBasket} className="button"  >Add to Basket</button>
-                    <button  onClick={removeItemsfromBasket} className="button"  >Remove from Basket</button>
-                </div>
+                <button onClick={addItemsToBasket} className="button"  >Add to Basket</button>
+                <button onClick={removeItemsfromBasket} className="button"  >Remove from Basket</button>
+
+            </div>
         </div>
     )
 }
