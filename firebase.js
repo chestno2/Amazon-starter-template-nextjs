@@ -1,11 +1,10 @@
-import firebase from "firebase"
-
+import firebase from "firebase";
 const firebaseConfig = {
-    apiKey: "AIzaSyAkATZIegjOgPdU9ohGgCLT3w_SC_zbRWU",
-    authDomain: "ecommerce-c6ac1.firebaseapp.com",
-    projectId: "ecommerce-c6ac1",
-    storageBucket: "ecommerce-c6ac1.appspot.com",
-    messagingSenderId: "550791809434",
-    appId: "1:550791809434:web:924f82fe09fc8870ffd223",
-    measurementId: "G-ZKNT4FBRS6"
-  };
+  apiKey: "AIzaSyAlVEqWWiYnCbzHmovXNEx399dDcsosVpY",
+  authDomain: "ecommerce-4e422.firebaseapp.com",
+  projectId: "ecommerce-4e422",
+  storageBucket: "ecommerce-4e422.appspot.com",
+  messagingSenderId: "580127846687",
+  appId: "1:580127846687:web:2e3e08ece7779e440e802a",
+  measurementId: "G-9YX8NYH2S1"
+};

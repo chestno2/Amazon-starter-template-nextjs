@@ -1,21 +1,23 @@
 import React from 'react'
 import Image from "next/image"
 import { MeniuAlt1Icon, MenuIcon, SearchCircleIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline"
-import {signIn,signOut,Session} from "next-auth/client"
+import { signIn, signOut, useSession } from "next-auth/client"
 import { useRouter } from 'next/dist/client/router'
 import { useSelector } from 'react-redux'
 import { selectItems } from '../slices/basketSlice'
 function Header() {
     const Router = useRouter()
     const items = useSelector(selectItems)
+    const [session] = useSession();
+    console.log(session);
     return (
         <header>
             <div className=" flex items-center bg-amazon_blue  flex-grow p-1 py-2 " >
                 <div className=" mt-2 flex items-center sm:flex-grow-0 " >
                     <Image src="https://links.papareact.com/f90"
-                     
-                     onClick={()=>Router.push("/")}
-                     width={150}
+
+                        onClick={() => Router.push("/")}
+                        width={150}
                         height={40}
                         objectFit="contain"
                         className="cursor-pointer" />
@@ -28,15 +30,15 @@ function Header() {
                     <SearchIcon className=" h-12 p-4 " />
                 </div>
                 <div className="  flex items-center text-xs space-x-6 text-white px-6 whitespace-nowrap  " >
-                    <div onClick={signIn} className="  link " >
-                        <p>Hello Atul Yadav</p>
+                    <div onClick={!session ? signIn : signOut} className="  link " >
+                        {session ? ` Hello,${session.user.name}` : "Sign in"}
                         <p className=" font-extrabold md:text-sm" > Account & Lists</p>
                     </div>
                     <div className="  link" >
                         <p>Returns</p>
                         <p className=" font-extrabold md:text-sm" >&Orders</p>
                     </div>
-                    <div onClick={()=>Router.push("/checkout")} className="  cursor-pointer  flex items-center relative" >
+                    <div onClick={() => Router.push("/checkout")} className="  cursor-pointer  flex items-center relative" >
                         {/* absolute without parent Relative will be absolute to the screen */}
                         <span className=" absolute top-0 right-0 md:right-10 h-4 w-4
                            bg-yellow-400  text-center rounded-full  font-bold " >{items.length}</span>
@@ -48,18 +50,18 @@ function Header() {
             </div>
 
             <div className=" flex items-center space-x-3  p-2 pl-3 bg-amazon_blue-light text-white text-small " >
-                  <p className="link flex" >
-                      <MenuIcon className =" h-6 pr-1 " />
-                      All
-                  </p>
-                 <p className="link" >Prime Video</p>
-                 <p className="link" >Amazon Business</p>
-                 <p className="link" >Todays Deals</p>
-                 <p className="link hidden lg:inline-flex" >Eletronics</p>
-                 <p className="link hidden lg:inline-flex" >Food & Grocery</p>
-                 <p className="link hidden lg:inline-flex" >Buy Again</p>
-                 <p className="link hidden lg:inline-flex" >Shopper Toolkit</p>
-                 <p className="link hidden lg:inline-flex" >Health And Personal Care</p>
+                <p className="link flex" >
+                    <MenuIcon className=" h-6 pr-1 " />
+                    All
+                </p>
+                <p className="link" >Prime Video</p>
+                <p className="link" >Amazon Business</p>
+                <p className="link" >Todays Deals</p>
+                <p className="link hidden lg:inline-flex" >Eletronics</p>
+                <p className="link hidden lg:inline-flex" >Food & Grocery</p>
+                <p className="link hidden lg:inline-flex" >Buy Again</p>
+                <p className="link hidden lg:inline-flex" >Shopper Toolkit</p>
+                <p className="link hidden lg:inline-flex" >Health And Personal Care</p>
             </div>
         </header>
     )
